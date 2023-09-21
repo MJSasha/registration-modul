@@ -1,4 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
+		xmlns:app="clr-namespace:RegistrationModul.Services"
+        xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:RegistrationModul.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,6 +15,7 @@
 		ExtendClientAreaToDecorationsHint="True"
 		CanResize="False"
 		SizeToContent="WidthAndHeight">
+	
 	<Panel Height="450" Width="600">
 		<ExperimentalAcrylicBorder IsHitTestVisible="False">
 			<ExperimentalAcrylicBorder.Material>
@@ -23,6 +26,13 @@
 					MaterialOpacity="0.65" />
 			</ExperimentalAcrylicBorder.Material>
 		</ExperimentalAcrylicBorder>
-		<views:MainView />
+		<rxui:RoutedViewHost Grid.Row="0" Router="{Binding Router}">
+			<rxui:RoutedViewHost.DefaultContent>
+				<views:MainView />
+			</rxui:RoutedViewHost.DefaultContent>
+			<rxui:RoutedViewHost.ViewLocator>
+				<app:AppViewLocator />
+			</rxui:RoutedViewHost.ViewLocator>
+		</rxui:RoutedViewHost>
 	</Panel>
 </Window>
