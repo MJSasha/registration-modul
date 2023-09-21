@@ -18,6 +18,6 @@ public class MainViewModel : ViewModelBase
 
     private async Task SubmitButtonClicked()
     {
-        Router.Navigate.Execute(new SignedInViewModel(this));
+        Router.Navigate.Execute(new RegistrationViewModel(this));
     }
 }

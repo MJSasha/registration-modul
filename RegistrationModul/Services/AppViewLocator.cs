@@ -9,7 +9,7 @@ namespace RegistrationModul.Services
     {
         public IViewFor ResolveView<T>(T viewModel, string contract = null) => viewModel switch
         {
-            SignedInViewModel context => new SignedInView { DataContext = context },
+            RegistrationViewModel context => new RegistrationView { DataContext = context },
             _ => throw new ArgumentOutOfRangeException(nameof(viewModel))
         };
     }

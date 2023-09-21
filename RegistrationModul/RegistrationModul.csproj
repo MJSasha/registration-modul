@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\SignedInView.axaml.cs">
-      <DependentUpon>SignedInView.axaml</DependentUpon>
+    <Compile Update="Views\RegistrationView.axaml.cs">
+      <DependentUpon>RegistrationView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
