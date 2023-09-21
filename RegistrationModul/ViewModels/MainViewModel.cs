@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace RegistrationModul.ViewModels;
 
-public class MainViewModel : MainWindowViewModel
+public class MainViewModel : ViewModelBase
 {
     public string Login { get; set; }
     public string Password { get; set; }
@@ -18,6 +18,6 @@ public class MainViewModel : MainWindowViewModel
 
     private async Task SubmitButtonClicked()
     {
-        GoNext.Execute();
+        Router.Navigate.Execute(new SignedInViewModel(this));
     }
 }

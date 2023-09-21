@@ -8,5 +8,5 @@
 	<Design.DataContext>
 		<vm:SignedInViewModel />
 	</Design.DataContext>
-	<TextBox Text="{Binding Test}" />
+	<TextBlock Text="{Binding Test}" />
 </UserControl>
