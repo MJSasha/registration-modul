@@ -15,6 +15,9 @@
 		ExtendClientAreaToDecorationsHint="True"
 		CanResize="False"
 		SizeToContent="WidthAndHeight">
+	<Window.Styles>
+		<StyleInclude Source="/Styles.axaml" />
+	</Window.Styles>
 	
 	<Panel Height="450" Width="600">
 		<ExperimentalAcrylicBorder IsHitTestVisible="False">

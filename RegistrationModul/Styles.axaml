@@ -6,5 +6,27 @@
         </Border>
     </Design.PreviewWith>
 
-    <!-- Add Styles Here -->
+	<Style Selector="Button.link">
+		<Setter Property="Padding" Value="0" />
+		<Setter Property="Cursor" Value="Hand" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Template">
+			<ControlTemplate>
+				<ContentPresenter Content="{TemplateBinding Content}">
+					<ContentPresenter.Styles>
+						<Style Selector="TextBlock">
+							<Setter Property="Foreground" Value="{TemplateBinding Foreground}"/>
+							<Setter Property="FontSize" Value="{TemplateBinding FontSize}"/>
+							<Setter Property="TextDecorations" Value="Underline"/>
+						</Style>
+					</ContentPresenter.Styles>
+				</ContentPresenter>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+
+	<Style Selector="TextBlock.error">
+		<Setter Property="Foreground" Value="#d9534f"/>
+	</Style>
 </Styles>
