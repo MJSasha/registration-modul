@@ -24,8 +24,15 @@ public partial class MainViewModel : ViewModelBase
     private bool showError;
     private string errorMessage;
 
-    public MainViewModel(IScreen screen) : base(screen) { }
-    public MainViewModel() { }
+    public MainViewModel(IScreen screen) : base(screen)
+    {
+        ValidateProperties();
+    }
+
+    public MainViewModel()
+    {
+        ValidateProperties();
+    }
 
     [RelayCommand]
     private async Task SubmitButtonClicked()
@@ -46,5 +53,11 @@ public partial class MainViewModel : ViewModelBase
     private async Task RegistrationButtonClicked()
     {
         Router.Navigate.Execute(new RegistrationViewModel(this));
+    }
+
+    private void ValidateProperties()
+    {
+        ValidateProperty(Login, nameof(Login));
+        ValidateProperty(Password, nameof(Password));
     }
 }

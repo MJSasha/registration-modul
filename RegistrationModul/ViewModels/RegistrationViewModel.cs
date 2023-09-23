@@ -37,8 +37,15 @@ namespace RegistrationModul.ViewModels
         private string errorMessage;
 
 
-        public RegistrationViewModel(IScreen screen) : base(screen) { }
-        public RegistrationViewModel() { }
+        public RegistrationViewModel(IScreen screen) : base(screen)
+        {
+            ValidateProperties();
+        }
+
+        public RegistrationViewModel()
+        {
+            ValidateProperties();
+        }
 
         [RelayCommand]
         private async Task RegistrationButtonClicked()
@@ -69,6 +76,15 @@ namespace RegistrationModul.ViewModels
         private void Exit()
         {
             Router.Navigate.Execute(new MainViewModel(this));
+        }
+
+        private void ValidateProperties()
+        {
+            ValidateProperty(Name, nameof(Name));
+            ValidateProperty(Login, nameof(Login));
+            ValidateProperty(Password, nameof(Password));
+            ValidateProperty(Phone, nameof(Phone));
+            ValidateProperty(Address, nameof(Address));
         }
     }
 }
