@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace RegistrationModul.ViewModels
 {
-    public partial class RegistrationViewModel : ViewModelBase, IRoutableViewModel
+    public partial class RegistrationViewModel : ViewModelBase
     {
-        public IScreen HostScreen { get; }
-        public string UrlPathSegment { get; } = Guid.NewGuid().ToString()[..5];
 
         public string Name { get; set; }
         public string Login { get; set; }
@@ -24,8 +22,7 @@ namespace RegistrationModul.ViewModels
         private string errorMessage;
 
 
-        public RegistrationViewModel(IScreen screen) => HostScreen = screen;
-        public RegistrationViewModel() { }
+        public RegistrationViewModel(IScreen screen) : base(screen) { }
 
         [RelayCommand]
         private async Task RegistrationButtonClicked()
