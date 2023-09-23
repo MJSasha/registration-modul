@@ -8,10 +8,10 @@
         xmlns:views="clr-namespace:RegistrationModul.Views"
         mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
         x:Class="RegistrationModul.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/heart.ico"
 		TransparencyLevelHint="AcrylicBlur"
 		Background="Transparent"
-        Title="RegistrationModul"
+        Title="RegistrationModule"
 		ExtendClientAreaToDecorationsHint="True"
 		CanResize="False"
 		SizeToContent="WidthAndHeight">
