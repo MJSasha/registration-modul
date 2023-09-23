@@ -1,5 +1,4 @@
 ﻿using ReactiveUI;
-using System.Reactive;
 
 namespace RegistrationModul.ViewModels
 {

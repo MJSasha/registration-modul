@@ -1,10 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using ReactiveUI;
-using RegistrationModul.Models;
 using RegistrationModul.Services;
-using System.IO;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace RegistrationModul.ViewModels;
 
@@ -33,7 +30,7 @@ public partial class MainViewModel : ViewModelBase
 
         if (!isUserExist)
         {
-            ErrorMessage = "Incorrect login or password!";
+            ErrorMessage = "Incorrect login or password or UUID!";
             ShowError = true;
             return;
         }

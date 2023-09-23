@@ -36,7 +36,7 @@ namespace RegistrationModul.Services
             var usersJson = await File.ReadAllTextAsync(usersFile);
             var users = string.IsNullOrWhiteSpace(usersJson) ? new List<User>() : JsonSerializer.Deserialize<List<User>>(usersJson);
 
-            return users.Exists(u => u.Login == login && u.Password == password);
+            return users.Exists(u => u.Login == login && u.Password == password && u.Id == Utils.GetUUID());
         }
 
         private string GetUUID()

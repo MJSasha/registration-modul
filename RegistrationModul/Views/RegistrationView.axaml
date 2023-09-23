@@ -4,7 +4,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:RegistrationModul.ViewModels"
         mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
-        x:Class="RegistrationModul.Views.RegistrationView">
+        x:Class="RegistrationModul.Views.RegistrationView"
+		x:DataType="vm:RegistrationViewModel">
 	<Design.DataContext>
 		<vm:RegistrationViewModel />
 	</Design.DataContext>
