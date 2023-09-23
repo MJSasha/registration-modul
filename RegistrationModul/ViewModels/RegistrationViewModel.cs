@@ -11,18 +11,18 @@ namespace RegistrationModul.ViewModels
     public partial class RegistrationViewModel : ViewModelBase
     {
         [Required]
-        public string Name { get => name; set => this.RaiseAndSetIfChanged(ref name, value); }
+        public string Name { get => name; set  {this.RaiseAndSetIfChanged(ref name, value); ValidateProperty(value, nameof(Name)); } }
         [Required]
         [EmailAddress]
-        public string Login { get => login; set => this.RaiseAndSetIfChanged(ref login, value); }
+        public string Login { get => login; set { this.RaiseAndSetIfChanged(ref login, value); ValidateProperty(value, nameof(Login)); } }
         [Required]
         [RegularExpression(@"^(?=(?:\D*\d){4})[a-zA-Z\d]{6}$", ErrorMessage = "The password must have 6 characters, 4 of which are digits.")]
-        public string Password { get => password; set => this.RaiseAndSetIfChanged(ref password, value); }
+        public string Password { get => password; set { this.RaiseAndSetIfChanged(ref password, value); ValidateProperty(value, nameof(Password)); } }
         [Required]
         [Phone]
-        public string Phone { get => phone; set => this.RaiseAndSetIfChanged(ref phone, value); }
+        public string Phone { get => phone; set { this.RaiseAndSetIfChanged(ref phone, value); ValidateProperty(value, nameof(Phone)); } }
         [Required]
-        public string Address { get => address; set => this.RaiseAndSetIfChanged(ref address, value); }
+        public string Address { get => address; set { this.RaiseAndSetIfChanged(ref address, value); ValidateProperty(value, nameof(Address)); } }
 
         public string ErrorMessage { get => errorMessage; set => this.RaiseAndSetIfChanged(ref errorMessage, value); }
         public bool ShowError { get => showError; set => this.RaiseAndSetIfChanged(ref showError, value); }
@@ -38,6 +38,7 @@ namespace RegistrationModul.ViewModels
 
 
         public RegistrationViewModel(IScreen screen) : base(screen) { }
+        public RegistrationViewModel() { }
 
         [RelayCommand]
         private async Task RegistrationButtonClicked()
@@ -62,6 +63,12 @@ namespace RegistrationModul.ViewModels
                 ErrorMessage = ex.Message;
                 ShowError = true;
             }
+        }
+
+        [RelayCommand]
+        private void Exit()
+        {
+            Router.Navigate.Execute(new MainViewModel(this));
         }
     }
 }

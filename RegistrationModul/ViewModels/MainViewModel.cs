@@ -10,9 +10,9 @@ public partial class MainViewModel : ViewModelBase
 {
     [Required]
     [EmailAddress]
-    public string Login { get => login; set => this.RaiseAndSetIfChanged(ref login, value); }
+    public string Login { get => login; set { this.RaiseAndSetIfChanged(ref login, value); ValidateProperty(value, nameof(Login)); } }
     [Required]
-    public string Password { get => password; set => this.RaiseAndSetIfChanged(ref password, value); }
+    public string Password { get => password; set { this.RaiseAndSetIfChanged(ref password, value); ValidateProperty(value, nameof(Password)); } }
 
     public string ErrorMessage { get => errorMessage; set => this.RaiseAndSetIfChanged(ref errorMessage, value); }
     public bool ShowError { get => showError; set => this.RaiseAndSetIfChanged(ref showError, value); }
@@ -23,6 +23,9 @@ public partial class MainViewModel : ViewModelBase
 
     private bool showError;
     private string errorMessage;
+
+    public MainViewModel(IScreen screen) : base(screen) { }
+    public MainViewModel() { }
 
     [RelayCommand]
     private async Task SubmitButtonClicked()
