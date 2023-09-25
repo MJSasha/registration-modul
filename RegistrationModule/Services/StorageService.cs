@@ -24,7 +24,7 @@ namespace RegistrationModul.Services
             var usersJson = await File.ReadAllTextAsync(usersFile);
             var users = string.IsNullOrWhiteSpace(usersJson) ? new List<User>() : JsonSerializer.Deserialize<List<User>>(usersJson);
 
-            user.Id = GetUUID();
+            user.Id = Utils.GetUUID();
             if (users.Exists(u => u.Id == user.Id || u.Login == user.Login)) throw new InvalidDataException("User already exist!");
 
             users.Add(user);
@@ -37,21 +37,6 @@ namespace RegistrationModul.Services
             var users = string.IsNullOrWhiteSpace(usersJson) ? new List<User>() : JsonSerializer.Deserialize<List<User>>(usersJson);
 
             return users.Exists(u => u.Login == login && u.Password == password && u.Id == Utils.GetUUID());
-        }
-
-        private string GetUUID()
-        {
-            var procStartInfo = new ProcessStartInfo("cmd", "/c " + "wmic csproduct get UUID")
-            {
-                RedirectStandardOutput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-
-            var proc = new Process() { StartInfo = procStartInfo };
-            proc.Start();
-
-            return proc.StandardOutput.ReadToEnd().Replace("UUID", string.Empty).Trim().ToUpper();
         }
     }
 }
