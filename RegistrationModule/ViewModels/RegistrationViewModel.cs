@@ -11,7 +11,7 @@ namespace RegistrationModul.ViewModels
     public partial class RegistrationViewModel : ViewModelBase
     {
         [Required]
-        public string Name { get => name; set  {this.RaiseAndSetIfChanged(ref name, value); ValidateProperty(value, nameof(Name)); } }
+        public string Name { get => name; set { this.RaiseAndSetIfChanged(ref name, value); ValidateProperty(value, nameof(Name)); } }
         [Required]
         [EmailAddress]
         public string Login { get => login; set { this.RaiseAndSetIfChanged(ref login, value); ValidateProperty(value, nameof(Login)); } }

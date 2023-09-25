@@ -1,6 +1,5 @@
 ﻿using RegistrationModul.Models;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -21,8 +20,7 @@ namespace RegistrationModul.Services
 
         public async Task CreateUser(User user)
         {
-            var usersJson = await File.ReadAllTextAsync(usersFile);
-            var users = string.IsNullOrWhiteSpace(usersJson) ? new List<User>() : JsonSerializer.Deserialize<List<User>>(usersJson);
+            var users = await ReadUsersFromFile();
 
             user.Id = Utils.GetUUID();
             if (users.Exists(u => u.Id == user.Id || u.Login == user.Login)) throw new InvalidDataException("User already exist!");
@@ -33,10 +31,14 @@ namespace RegistrationModul.Services
 
         public async Task<bool> CheckUserExist(string login, string password)
         {
-            var usersJson = await File.ReadAllTextAsync(usersFile);
-            var users = string.IsNullOrWhiteSpace(usersJson) ? new List<User>() : JsonSerializer.Deserialize<List<User>>(usersJson);
-
+            var users = await ReadUsersFromFile();
             return users.Exists(u => u.Login == login && u.Password == password && u.Id == Utils.GetUUID());
+        }
+
+        private async Task<List<User>> ReadUsersFromFile()
+        {
+            var usersJson = await File.ReadAllTextAsync(usersFile);
+            return string.IsNullOrWhiteSpace(usersJson) ? new List<User>() : JsonSerializer.Deserialize<List<User>>(usersJson);
         }
     }
 }
