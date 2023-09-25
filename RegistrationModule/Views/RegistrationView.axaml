@@ -13,7 +13,7 @@
 		<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 			<Grid RowDefinitions="Auto * * * * * * * * * *" ColumnDefinitions="150 6 150" VerticalAlignment="Center" HorizontalAlignment="Center">
 				
-				<TextBlock Grid.ColumnSpan="3" Classes="error" HorizontalAlignment="Stretch" Text="{Binding ErrorMessage}" IsVisible="{Binding ShowError}" />
+				<TextBlock Grid.ColumnSpan="3" Classes="error" HorizontalAlignment="Stretch" TextAlignment="Center" TextWrapping="Wrap"  Text="{Binding ErrorMessage}" IsVisible="{Binding ShowError}" />
 				
 				<Label Grid.Row="1" Grid.ColumnSpan="3" Margin="0 6 0 0">Login</Label>
 				<TextBox Grid.Row="2" Grid.ColumnSpan="3" Text="{Binding Login}" HorizontalAlignment="Stretch" />
