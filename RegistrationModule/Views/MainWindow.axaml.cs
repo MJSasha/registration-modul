@@ -1,4 +1,5 @@
-﻿using Avalonia.Markup.Xaml;
+﻿using Avalonia;
+using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using ReactiveUI;
 using RegistrationModul.ViewModels;
@@ -11,5 +12,9 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
         this.WhenActivated(disposables => { });
         AvaloniaXamlLoader.Load(this);
+
+#if DEBUG
+        this.AttachDevTools();
+#endif
     }
 }
