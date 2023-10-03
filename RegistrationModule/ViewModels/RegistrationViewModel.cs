@@ -50,7 +50,7 @@ namespace RegistrationModul.ViewModels
         [RelayCommand]
         private async Task RegistrationButtonClicked()
         {
-            var storageService = new StorageService();
+            var storageService = new AuthService();
             var user = new User
             {
                 Name = Name,

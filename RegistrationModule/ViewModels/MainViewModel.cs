@@ -37,7 +37,7 @@ public partial class MainViewModel : ViewModelBase
     [RelayCommand]
     private async Task SubmitButtonClicked()
     {
-        var storageService = new StorageService();
+        var storageService = new AuthService();
         var isUserExist = await storageService.CheckUserExist(Login, Password);
 
         if (!isUserExist)
