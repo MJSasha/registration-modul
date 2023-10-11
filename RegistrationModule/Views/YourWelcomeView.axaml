@@ -11,7 +11,7 @@
 	</Design.DataContext>
 	<StackPanel Spacing="10" HorizontalAlignment="Center" VerticalAlignment="Center">
 		<Label FontSize="24" HorizontalAlignment="Center">Your Welcome!!!</Label>
-		<TextBox Text="{Binding Text}" Width="300" Height="200" AcceptsReturn="True" TextWrapping="Wrap" />
+		<TextBox Text="{Binding Text}" Width="400" Height="300" AcceptsReturn="True" TextWrapping="Wrap" />
 		<Button Command="{Binding SaveCommand}" HorizontalAlignment="Center" Padding="15 5">Save</Button>
 		<Button Command="{Binding ExitCommand}" Classes="link" HorizontalAlignment="Center" Padding="15 5">Exit</Button>
 	</StackPanel>
