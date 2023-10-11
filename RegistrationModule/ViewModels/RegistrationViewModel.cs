@@ -2,6 +2,7 @@
 using ReactiveUI;
 using RegistrationModul.Models;
 using RegistrationModul.Services;
+using RegistrationModule.Models;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Threading.Tasks;
@@ -51,11 +52,12 @@ namespace RegistrationModul.ViewModels
         private async Task RegistrationButtonClicked()
         {
             var storageService = new AuthService();
+            var salt = Utils.GenerateSalt();
             var user = new User
             {
                 Name = Name,
                 Login = Login,
-                Password = Password,
+                Credentials = new Credentials { Password = Utils.HashPassword(password, salt), Salt = salt },
                 Phone = Phone,
                 Address = Address,
             };

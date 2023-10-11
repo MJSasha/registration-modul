@@ -14,7 +14,7 @@ public class ViewModelBase : ReactiveObject, IScreen, IRoutableViewModel
     public IScreen HostScreen { get; }
     public string UrlPathSegment { get; } = Guid.NewGuid().ToString()[..5];
 
-    public bool IsButtonEnabled => validationErrors.Count == 0;
+    public bool AllPropsValid => validationErrors.Count == 0;
 
     public Dictionary<string, string> ValidationErrors
     {
@@ -50,7 +50,7 @@ public class ViewModelBase : ReactiveObject, IScreen, IRoutableViewModel
             ValidationErrors.Remove(propertyName);
         }
 
-        this.RaisePropertyChanged(nameof(IsButtonEnabled));
+        this.RaisePropertyChanged(nameof(AllPropsValid));
         this.RaisePropertyChanged(nameof(ValidationErrors));
     }
 }

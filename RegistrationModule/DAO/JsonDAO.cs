@@ -1,64 +1,64 @@
-﻿using RegistrationModul.Models;
+﻿using RegistrationModule.Interfaces;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
 namespace RegistrationModule.DAO
 {
-    public class UsersDAO
+    public class JsonDAO<T> where T : IEntity
     {
         private readonly string jsonFilePath;
-        private readonly List<User> users;
+        private readonly List<T> entities;
 
-        public UsersDAO(string jsonFilePath)
+        public JsonDAO(string jsonFilePath)
         {
             this.jsonFilePath = jsonFilePath;
 
             if (File.Exists(this.jsonFilePath))
             {
                 string json = File.ReadAllText(this.jsonFilePath);
-                users = string.IsNullOrWhiteSpace(json) ? new List<User>() : JsonSerializer.Deserialize<List<User>>(json);
+                entities = string.IsNullOrWhiteSpace(json) ? new List<T>() : JsonSerializer.Deserialize<List<T>>(json);
             }
             else
             {
-                users = new List<User>();
+                entities = new List<T>();
             }
         }
 
-        public List<User> GetAll()
+        public List<T> GetAll()
         {
-            return users;
+            return entities;
         }
 
-        public void Create(User user)
+        public void Create(T user)
         {
-            users.Add(user);
+            entities.Add(user);
             SaveChanges();
         }
 
-        public void Update(User updatedUser)
+        public void Update(T entity)
         {
-            int index = users.FindIndex(user => user.Id == updatedUser.Id);
+            int index = entities.FindIndex(user => user.Id == entity.Id);
             if (index != -1)
             {
-                users[index] = updatedUser;
+                entities[index] = entity;
                 SaveChanges();
             }
         }
 
         public void Delete(string id)
         {
-            User userToRemove = users.Find(user => user.Id == id);
-            if (userToRemove != null)
+            T entity = entities.Find(user => user.Id == id);
+            if (entity != null)
             {
-                users.Remove(userToRemove);
+                entities.Remove(entity);
                 SaveChanges();
             }
         }
 
         private void SaveChanges()
         {
-            string json = JsonSerializer.Serialize(users);
+            string json = JsonSerializer.Serialize(entities);
             File.WriteAllText(jsonFilePath, json);
         }
     }

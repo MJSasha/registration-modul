@@ -7,11 +7,11 @@ namespace RegistrationModul.Services
 {
     public class AuthService
     {
-        private readonly UsersDAO usersDAO;
+        private readonly JsonDAO<User> usersDAO;
 
         public AuthService()
         {
-            usersDAO = new UsersDAO("users.json");
+            usersDAO = new JsonDAO<User>("users.json");
         }
 
         public async Task CreateUser(User user)
@@ -19,14 +19,14 @@ namespace RegistrationModul.Services
             var users = usersDAO.GetAll();
 
             user.Id = Utils.GetUUID();
-            if (users.Exists(u => u.Id == user.Id || u.Login == user.Login)) throw new InvalidDataException("User already exist!");
+            if (users.Exists(u => u.Id == user.Id || u.Login == user.Login)) throw new InvalidDataException("User with same login or UUID already exist!");
             usersDAO.Create(user);
         }
 
         public async Task<bool> CheckUserExist(string login, string password)
         {
-            var users = usersDAO.GetAll();
-            return users.Exists(u => u.Login == login && u.Password == password && u.Id == Utils.GetUUID());
+            var user = usersDAO.GetAll().Find(u => u.Login == login && u.Id == Utils.GetUUID());
+            return user != null && user.Credentials.Password == Utils.HashPassword(password, user.Credentials.Salt);
         }
     }
 }
