@@ -54,7 +54,7 @@ public partial class LoginViewModel : ViewModelBase, IDisposable
             if (tryesCounter > 4)
             {
                 IsButtonEnabled = false;
-                ErrorMessage = "Превышено число попыток, подождите 15 секунд";
+                ErrorMessage = "Exceeded the number of attempts, wait 15 seconds";
                 ShowError = true;
                 timer.Start();
             }
