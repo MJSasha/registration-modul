@@ -11,6 +11,8 @@ namespace RegistrationModul.ViewModels
 {
     public partial class RegistrationViewModel : ViewModelBase
     {
+        #region Public props
+
         [Required]
         public string Name { get => name; set { this.RaiseAndSetIfChanged(ref name, value); ValidateProperty(value, nameof(Name)); } }
         [Required]
@@ -28,6 +30,10 @@ namespace RegistrationModul.ViewModels
         public string ErrorMessage { get => errorMessage; set => this.RaiseAndSetIfChanged(ref errorMessage, value); }
         public bool ShowError { get => showError; set => this.RaiseAndSetIfChanged(ref showError, value); }
 
+        #endregion
+
+        #region Private props
+
         private string name;
         private string login;
         private string password;
@@ -37,6 +43,7 @@ namespace RegistrationModul.ViewModels
         private bool showError;
         private string errorMessage;
 
+        #endregion
 
         public RegistrationViewModel(IScreen screen) : base(screen)
         {
@@ -47,6 +54,8 @@ namespace RegistrationModul.ViewModels
         {
             ValidateProperties();
         }
+
+        #region Relay commands
 
         [RelayCommand]
         private async Task RegistrationButtonClicked()
@@ -79,6 +88,8 @@ namespace RegistrationModul.ViewModels
         {
             Router.Navigate.Execute(new LoginViewModel(this));
         }
+
+        #endregion
 
         private void ValidateProperties()
         {

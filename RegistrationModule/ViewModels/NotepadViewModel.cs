@@ -6,12 +6,19 @@ namespace RegistrationModul.ViewModels
 {
     public partial class NotepadViewModel : ViewModelBase
     {
+        #region Public props
+
         public string Text { get => text; set { this.RaiseAndSetIfChanged(ref text, value); } }
+
+        #endregion
+
+        #region Private props
 
         private readonly string fileName = "text.txt";
 
         private string text;
 
+        #endregion
 
         public NotepadViewModel(IScreen screen) : base(screen)
         {
@@ -22,6 +29,8 @@ namespace RegistrationModul.ViewModels
         {
             Init();
         }
+
+        #region Relay commands
 
         [RelayCommand]
         private void Exit()
@@ -34,6 +43,8 @@ namespace RegistrationModul.ViewModels
         {
             File.WriteAllText(fileName, Text);
         }
+
+        #endregion
 
         private void Init()
         {

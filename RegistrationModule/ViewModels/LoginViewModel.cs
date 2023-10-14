@@ -10,6 +10,8 @@ namespace RegistrationModul.ViewModels;
 
 public partial class LoginViewModel : ViewModelBase, IDisposable
 {
+    #region Public props
+
     [Required]
     [EmailAddress]
     public string Login { get => login; set { this.RaiseAndSetIfChanged(ref login, value); ValidateProperty(value, nameof(Login)); } }
@@ -20,6 +22,11 @@ public partial class LoginViewModel : ViewModelBase, IDisposable
     public bool ShowError { get => showError; set => this.RaiseAndSetIfChanged(ref showError, value); }
     public bool IsButtonEnabled { get => isButtonEnabled; set => this.RaiseAndSetIfChanged(ref isButtonEnabled, value); }
 
+    #endregion
+
+    #region Private props
+
+    private const int WAIT_TIME_IN_SECONDS = 15;
 
     private string login;
     private string password;
@@ -29,7 +36,10 @@ public partial class LoginViewModel : ViewModelBase, IDisposable
     private string errorMessage;
 
     private Timer timer;
-    private int tryesCounter;
+    private int triesCounter;
+    private int currentWaitTimeInSeconds;
+
+    #endregion
 
     public LoginViewModel(IScreen screen) : base(screen)
     {
@@ -41,20 +51,22 @@ public partial class LoginViewModel : ViewModelBase, IDisposable
         Initialize();
     }
 
+    #region Ralay commands
+
     [RelayCommand]
     private async Task SubmitButtonClicked()
     {
-        tryesCounter++;
+        triesCounter++;
 
         var storageService = new AuthService();
         var isUserExist = await storageService.CheckUserExist(Login, Password);
 
         if (!isUserExist)
         {
-            if (tryesCounter > 4)
+            if (triesCounter > 4)
             {
                 IsButtonEnabled = false;
-                ErrorMessage = "Exceeded the number of attempts, wait 15 seconds";
+                ErrorMessage = $"Exceeded the number of attempts, wait {WAIT_TIME_IN_SECONDS} seconds";
                 ShowError = true;
                 timer.Start();
             }
@@ -75,22 +87,35 @@ public partial class LoginViewModel : ViewModelBase, IDisposable
         Router.Navigate.Execute(new RegistrationViewModel(this));
     }
 
+    #endregion
+
     private void Initialize()
     {
         ValidateProperties();
         timer = new Timer
         {
-            Interval = TimeSpan.FromSeconds(15).TotalMilliseconds
+            Interval = TimeSpan.FromSeconds(1).TotalMilliseconds
         };
         timer.Elapsed += Timer_Elapsed;
-        timer.AutoReset = false;
+        timer.AutoReset = true;
     }
 
     private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
     {
-        tryesCounter = 0;
-        IsButtonEnabled = true;
-        ShowError = false;
+        currentWaitTimeInSeconds++;
+
+        if (currentWaitTimeInSeconds >= WAIT_TIME_IN_SECONDS)
+        {
+            timer.Stop();
+            triesCounter = 0;
+            currentWaitTimeInSeconds = 0;
+            IsButtonEnabled = true;
+            ShowError = false;
+        }
+        else
+        {
+            ErrorMessage = $"Exceeded the number of attempts, wait {WAIT_TIME_IN_SECONDS - currentWaitTimeInSeconds} seconds";
+        }
     }
 
     private void ValidateProperties()
