@@ -9,9 +9,9 @@ namespace RegistrationModul.Services
     {
         public IViewFor ResolveView<T>(T viewModel, string contract = null) => viewModel switch
         {
-            MainViewModel context => new MainView { DataContext = context },
+            LoginViewModel context => new LoginView { DataContext = context },
             RegistrationViewModel context => new RegistrationView { DataContext = context },
-            YourWelcomeViewModel context => new YourWelcomeView { DataContext = context },
+            NotepadViewModel context => new NotepadView { DataContext = context },
             _ => throw new ArgumentOutOfRangeException(nameof(viewModel))
         };
     }

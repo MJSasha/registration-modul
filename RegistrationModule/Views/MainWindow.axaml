@@ -31,7 +31,7 @@
 		</ExperimentalAcrylicBorder>
 		<rxui:RoutedViewHost Grid.Row="0" Router="{Binding Router}">
 			<rxui:RoutedViewHost.DefaultContent>
-				<views:MainView />
+				<views:LoginView />
 			</rxui:RoutedViewHost.DefaultContent>
 			<rxui:RoutedViewHost.ViewLocator>
 				<app:AppViewLocator />

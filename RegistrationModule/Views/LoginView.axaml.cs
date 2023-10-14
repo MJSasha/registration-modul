@@ -5,9 +5,9 @@ using RegistrationModul.ViewModels;
 
 namespace RegistrationModul.Views;
 
-public partial class MainView : ReactiveUserControl<MainViewModel>
+public partial class LoginView : ReactiveUserControl<LoginViewModel>
 {
-    public MainView()
+    public LoginView()
     {
         this.WhenActivated(disposables => { });
         AvaloniaXamlLoader.Load(this);

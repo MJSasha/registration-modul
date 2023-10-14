@@ -8,7 +8,7 @@ using System.Timers;
 
 namespace RegistrationModul.ViewModels;
 
-public partial class MainViewModel : ViewModelBase, IDisposable
+public partial class LoginViewModel : ViewModelBase, IDisposable
 {
     [Required]
     [EmailAddress]
@@ -31,12 +31,12 @@ public partial class MainViewModel : ViewModelBase, IDisposable
     private Timer timer;
     private int tryesCounter;
 
-    public MainViewModel(IScreen screen) : base(screen)
+    public LoginViewModel(IScreen screen) : base(screen)
     {
         Initialize();
     }
 
-    public MainViewModel()
+    public LoginViewModel()
     {
         Initialize();
     }
@@ -66,7 +66,7 @@ public partial class MainViewModel : ViewModelBase, IDisposable
 
             return;
         }
-        Router.Navigate.Execute(new YourWelcomeViewModel(this));
+        Router.Navigate.Execute(new NotepadViewModel(this));
     }
 
     [RelayCommand]

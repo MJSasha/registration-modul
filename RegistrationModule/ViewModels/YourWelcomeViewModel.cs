@@ -4,7 +4,7 @@ using System.IO;
 
 namespace RegistrationModul.ViewModels
 {
-    public partial class YourWelcomeViewModel : ViewModelBase
+    public partial class NotepadViewModel : ViewModelBase
     {
         public string Text { get => text; set { this.RaiseAndSetIfChanged(ref text, value); } }
 
@@ -13,12 +13,12 @@ namespace RegistrationModul.ViewModels
         private string text;
 
 
-        public YourWelcomeViewModel(IScreen screen) : base(screen)
+        public NotepadViewModel(IScreen screen) : base(screen)
         {
             Init();
         }
 
-        public YourWelcomeViewModel()
+        public NotepadViewModel()
         {
             Init();
         }
@@ -26,7 +26,7 @@ namespace RegistrationModul.ViewModels
         [RelayCommand]
         private void Exit()
         {
-            Router.Navigate.Execute(new MainViewModel(this));
+            Router.Navigate.Execute(new LoginViewModel(this));
         }
 
         [RelayCommand]

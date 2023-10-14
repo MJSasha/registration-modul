@@ -5,9 +5,9 @@ using RegistrationModul.ViewModels;
 
 namespace RegistrationModul.Views
 {
-    public partial class YourWelcomeView : ReactiveUserControl<YourWelcomeViewModel>
+    public partial class NotepadView : ReactiveUserControl<NotepadViewModel>
     {
-        public YourWelcomeView()
+        public NotepadView()
         {
             this.WhenActivated(disposables => { });
             AvaloniaXamlLoader.Load(this);

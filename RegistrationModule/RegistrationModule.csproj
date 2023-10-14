@@ -26,11 +26,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\LoginView.axaml.cs">
+      <DependentUpon>LoginView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\RegistrationView.axaml.cs">
       <DependentUpon>RegistrationView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\YourWelcomeView.axaml.cs">
-      <DependentUpon>YourWelcomeView.axaml</DependentUpon>
+    <Compile Update="Views\NotepadView.axaml.cs">
+      <DependentUpon>NotepadView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

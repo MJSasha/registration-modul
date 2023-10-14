@@ -65,7 +65,7 @@ namespace RegistrationModul.ViewModels
             try
             {
                 await storageService.CreateUser(user);
-                Router.Navigate.Execute(new YourWelcomeViewModel(this));
+                Router.Navigate.Execute(new NotepadViewModel(this));
             }
             catch (InvalidDataException ex)
             {
@@ -77,7 +77,7 @@ namespace RegistrationModul.ViewModels
         [RelayCommand]
         private void Exit()
         {
-            Router.Navigate.Execute(new MainViewModel(this));
+            Router.Navigate.Execute(new LoginViewModel(this));
         }
 
         private void ValidateProperties()

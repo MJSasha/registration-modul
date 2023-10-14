@@ -4,13 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:RegistrationModul.ViewModels"
              mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
-             x:Class="RegistrationModul.Views.YourWelcomeView"
-			 x:DataType="vm:YourWelcomeViewModel">
+             x:Class="RegistrationModul.Views.NotepadView"
+			 x:DataType="vm:NotepadViewModel">
 	<Design.DataContext>
-		<vm:YourWelcomeViewModel />
+		<vm:NotepadViewModel />
 	</Design.DataContext>
 	<StackPanel Spacing="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-		<Label FontSize="24" HorizontalAlignment="Center">Your Welcome!!!</Label>
+		<Label FontSize="24" HorizontalAlignment="Center">Welcome!!!</Label>
 		<TextBox Text="{Binding Text}" Width="400" Height="300" AcceptsReturn="True" TextWrapping="Wrap" />
 		<Button Command="{Binding SaveCommand}" HorizontalAlignment="Center" Padding="15 5">Save</Button>
 		<Button Command="{Binding ExitCommand}" Classes="link" HorizontalAlignment="Center" Padding="15 5">Exit</Button>

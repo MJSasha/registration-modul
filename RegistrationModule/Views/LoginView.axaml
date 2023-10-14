@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:RegistrationModul.ViewModels"
              mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
-             x:Class="RegistrationModul.Views.MainView"
-             x:DataType="vm:MainViewModel">
+             x:Class="RegistrationModul.Views.LoginView"
+             x:DataType="vm:LoginViewModel">
   <Design.DataContext>
-    <vm:MainViewModel />
+	  <vm:LoginViewModel />
   </Design.DataContext>
 	<Border BoxShadow="2 2 10 2 Black" Padding="8" CornerRadius="5" VerticalAlignment="Center" HorizontalAlignment="Center">
 		<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
