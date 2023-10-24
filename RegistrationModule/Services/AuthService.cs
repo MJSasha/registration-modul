@@ -7,25 +7,27 @@ namespace RegistrationModul.Services
 {
     public class AuthService
     {
-        private readonly JsonDAO<User> usersDAO;
+        private readonly CompanyDAO companyDAO;
 
         public AuthService()
         {
-            usersDAO = new JsonDAO<User>("users.json");
+            companyDAO = new CompanyDAO();
         }
 
         public async Task CreateUser(User user)
         {
-            var users = usersDAO.GetAll();
+            var company = companyDAO.GetCurrentCompany();
+            var users = company.Users;
 
             user.Id = Utils.GetUUID();
             if (users.Exists(u => u.Id == user.Id || u.Login == user.Login)) throw new InvalidDataException("User with same login or UUID already exist!");
-            usersDAO.Create(user);
+            company.Users.Add(user);
+            companyDAO.Update(company);
         }
 
         public async Task<bool> CheckUserExist(string login, string password)
         {
-            var user = usersDAO.GetAll().Find(u => u.Login == login && u.Id == Utils.GetUUID());
+            var user = companyDAO.GetCurrentCompany().Users.Find(u => u.Login == login);
             return user != null && user.Credentials.Password == Utils.HashPassword(password, user.Credentials.Salt);
         }
     }

@@ -7,8 +7,8 @@ namespace RegistrationModule.DAO
 {
     public class JsonDAO<T> where T : IEntity
     {
+        protected readonly List<T> entities;
         private readonly string jsonFilePath;
-        private readonly List<T> entities;
 
         public JsonDAO(string jsonFilePath)
         {

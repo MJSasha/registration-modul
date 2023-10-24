@@ -4,6 +4,7 @@
         <Border Padding="20">
 			<StackPanel Spacing="10">
 				<Button Classes="link">Link</Button>
+				<Button Classes="buttonWithQuestionIcon"/>
 				<TextBlock Classes="error">Error text</TextBlock>
 				<Ellipse Fill="BurlyWood" Height="40" Width="40"/>
 			</StackPanel>
@@ -72,6 +73,20 @@
 						  StrokeThickness="2"/>
 				</Canvas>
 			</DataTemplate>
+		</Setter>
+	</Style>
+
+	<Style Selector="Button.buttonWithQuestionIcon">
+		<Setter Property="Button.Width" Value="22" />
+		<Setter Property="Button.Height" Value="22" />
+		<Setter Property="Button.Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Border CornerRadius="20" BorderBrush="White" BorderThickness="2" Background="Transparent">
+						<TextBlock Text="?" FontSize="15" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
 		</Setter>
 	</Style>
 </Styles>

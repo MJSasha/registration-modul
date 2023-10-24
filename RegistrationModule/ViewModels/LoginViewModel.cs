@@ -1,6 +1,9 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using Avalonia.Controls;
+using Avalonia.Input;
+using CommunityToolkit.Mvvm.Input;
 using ReactiveUI;
 using RegistrationModul.Services;
+using RegistrationModule.Services;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -20,20 +23,25 @@ public partial class LoginViewModel : ViewModelBase, IDisposable
 
     public string ErrorMessage { get => errorMessage; set => this.RaiseAndSetIfChanged(ref errorMessage, value); }
     public bool ShowError { get => showError; set => this.RaiseAndSetIfChanged(ref showError, value); }
+    public bool IsDevicePermitted { get => devicePermitted; set => this.RaiseAndSetIfChanged(ref devicePermitted, value); }
     public bool IsButtonEnabled { get => isButtonEnabled; set => this.RaiseAndSetIfChanged(ref isButtonEnabled, value); }
+    public string UuidTooltip { get => uuidTooltip; set => this.RaiseAndSetIfChanged(ref uuidTooltip, value); }
 
     #endregion
 
     #region Private props
 
     private const int WAIT_TIME_IN_SECONDS = 15;
+    private CompaniesService companiesService;
 
     private string login;
     private string password;
 
     private bool showError;
+    private bool devicePermitted;
     private bool isButtonEnabled = true;
     private string errorMessage;
+    private string uuidTooltip;
 
     private Timer timer;
     private int triesCounter;
@@ -91,6 +99,10 @@ public partial class LoginViewModel : ViewModelBase, IDisposable
 
     private void Initialize()
     {
+        companiesService = new CompaniesService();
+
+        IsDevicePermitted = companiesService.CheckDevicePermitted();
+        UuidTooltip = $"Your UUID: {Utils.GetUUID()} (click to copy)";
         ValidateProperties();
         timer = new Timer
         {

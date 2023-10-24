@@ -9,30 +9,36 @@
   <Design.DataContext>
 	  <vm:LoginViewModel />
   </Design.DataContext>
-	<Border BoxShadow="2 2 10 2 Black" Padding="8" CornerRadius="5" VerticalAlignment="Center" HorizontalAlignment="Center">
-		<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-			<Grid RowDefinitions="Auto,*,*,*,*,*,*" ColumnDefinitions="150" VerticalAlignment="Center" HorizontalAlignment="Center">
+	<Grid Margin="12">
+		<Button Classes="buttonWithQuestionIcon" HorizontalAlignment="Left" VerticalAlignment="Top" Click="CopyButton_OnClick" ToolTip.Tip="{Binding UuidTooltip}"/>
+		
+		<Border BoxShadow="2 2 10 2 Black" Padding="8" CornerRadius="5" VerticalAlignment="Center" HorizontalAlignment="Center" IsVisible="{Binding IsDevicePermitted}">
+			<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+				<Grid RowDefinitions="Auto,*,*,*,*,*,*" ColumnDefinitions="150" VerticalAlignment="Center" HorizontalAlignment="Center">
 				
-				<TextBlock Classes="error" HorizontalAlignment="Stretch" TextAlignment="Center" TextWrapping="Wrap" Text="{Binding ErrorMessage}" IsVisible="{Binding ShowError}" />
+					<TextBlock Classes="error" HorizontalAlignment="Stretch" TextAlignment="Center" TextWrapping="Wrap" Text="{Binding ErrorMessage}" IsVisible="{Binding ShowError}" />
 				
-				<Label Grid.Row="1" Margin="0,10,0,0">Login</Label>
-				<TextBox Grid.Row="2" Text="{Binding Login}" HorizontalAlignment="Stretch" />
+					<Label Grid.Row="1" Margin="0,10,0,0">Login</Label>
+					<TextBox Grid.Row="2" Text="{Binding Login}" HorizontalAlignment="Stretch" />
 				
-				<Label Grid.Row="3" Margin="0,6,0,0">Password</Label>
-				<TextBox Grid.Row="4" Text="{Binding Password}" HorizontalAlignment="Stretch" PasswordChar="•" />
+					<Label Grid.Row="3" Margin="0,6,0,0">Password</Label>
+					<TextBox Grid.Row="4" Text="{Binding Password}" HorizontalAlignment="Stretch" PasswordChar="•" />
 				
-				<Button Grid.Row="5" Command="{Binding SubmitButtonClickedCommand}" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" Margin="0,10,0,0">
-					<Button.IsEnabled>
-						<MultiBinding Converter="{x:Static BoolConverters.And}">
-							<Binding Path="AllPropsValid"/>
-							<Binding Path="IsButtonEnabled"/>
-						</MultiBinding>
-					</Button.IsEnabled>
-					Submit
-				</Button>
+					<Button Grid.Row="5" Command="{Binding SubmitButtonClickedCommand}" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+						<Button.IsEnabled>
+							<MultiBinding Converter="{x:Static BoolConverters.And}">
+								<Binding Path="AllPropsValid"/>
+								<Binding Path="IsButtonEnabled"/>
+							</MultiBinding>
+						</Button.IsEnabled>
+						Submit
+					</Button>
 				
-				<Button Grid.Row="6" Classes="link" Command="{Binding RegistrationButtonClickedCommand}" HorizontalAlignment="Center" Margin="0,10,0,0">Registration</Button>
-			</Grid>
-		</StackPanel>
-	</Border>
+					<Button Grid.Row="6" Classes="link" Command="{Binding RegistrationButtonClickedCommand}" HorizontalAlignment="Center" Margin="0,10,0,0">Registration</Button>
+				</Grid>
+			</StackPanel>
+		</Border>
+
+		<Label FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding !IsDevicePermitted}">Your Device Not Permitted</Label>
+	</Grid>
 </UserControl>
