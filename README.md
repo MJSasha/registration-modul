@@ -21,7 +21,7 @@ Before you begin, ensure you have met the following requirements:
 ### Installation
 1. Clone the repository to your local machine using Git:
    ```bash
-   git clone https://github.com/yourusername/registration-module.git
+   git clone https://github.com/MJSasha/registration-module.git
    ```
 
 ## Usage
