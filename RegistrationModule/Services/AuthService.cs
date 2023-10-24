@@ -7,6 +7,8 @@ namespace RegistrationModul.Services
 {
     public class AuthService
     {
+        public static User CurrentUser { get; private set; }
+
         private readonly CompanyDAO companyDAO;
 
         public AuthService()
@@ -28,7 +30,9 @@ namespace RegistrationModul.Services
         public async Task<bool> CheckUserExist(string login, string password)
         {
             var user = companyDAO.GetCurrentCompany().Users.Find(u => u.Login == login);
-            return user != null && user.Credentials.Password == Utils.HashPassword(password, user.Credentials.Salt);
+            var isExist = user != null && user.Credentials.Password == Utils.HashPassword(password, user.Credentials.Salt);
+            if (isExist) CurrentUser = user;
+            return isExist;
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using ReactiveUI;
+using RegistrationModul.Services;
+using RegistrationModule.Definitions;
 using System.IO;
 
 namespace RegistrationModul.ViewModels
@@ -8,7 +10,8 @@ namespace RegistrationModul.ViewModels
     {
         #region Public props
 
-        public string Text { get => text; set { this.RaiseAndSetIfChanged(ref text, value); } }
+        public string Text { get => text; set => this.RaiseAndSetIfChanged(ref text, value); }
+        public bool CanEddit { get => canEddit; set => this.RaiseAndSetIfChanged(ref canEddit, value); }
 
         #endregion
 
@@ -17,6 +20,7 @@ namespace RegistrationModul.ViewModels
         private readonly string fileName = "text.txt";
 
         private string text;
+        private bool canEddit;
 
         #endregion
 
@@ -48,6 +52,7 @@ namespace RegistrationModul.ViewModels
 
         private void Init()
         {
+            CanEddit = AuthService.CurrentUser.Role == UserRole.Editor;
             if (File.Exists(this.fileName))
             {
                 Text = File.ReadAllText(this.fileName);
