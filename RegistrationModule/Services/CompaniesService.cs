@@ -15,5 +15,7 @@ namespace RegistrationModule.Services
         public Company GetCurrentCompany() => companyDAO.GetCurrentCompany();
 
         public bool CheckDevicePermitted() => GetCurrentCompany() != null;
+
+        public void Update(Company company) => companyDAO.Update(company);
     }
 }

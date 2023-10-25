@@ -7,7 +7,7 @@ namespace RegistrationModul.Services
 {
     public class AuthService
     {
-        public static User CurrentUser { get; private set; }
+        public static User CurrentUser { get; set; }
 
         private readonly CompanyDAO companyDAO;
 

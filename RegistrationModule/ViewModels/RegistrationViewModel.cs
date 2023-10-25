@@ -74,6 +74,7 @@ namespace RegistrationModul.ViewModels
             try
             {
                 await storageService.CreateUser(user);
+                AuthService.CurrentUser = user;
                 Router.Navigate.Execute(new NotepadViewModel(this));
             }
             catch (InvalidDataException ex)

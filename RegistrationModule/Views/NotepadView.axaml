@@ -9,22 +9,32 @@
 	<Design.DataContext>
 		<vm:NotepadViewModel />
 	</Design.DataContext>
-	<TabControl Margin="20">
+	<TabControl Margin="20" Width="400">
 		<TabItem Header="Notepad" VerticalContentAlignment="Center">
 			<StackPanel Spacing="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-				<TextBox Text="{Binding Text}" Width="400" Height="300" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="{Binding !CanEdit}" />
+				<TextBox Text="{Binding Text}" Width="400" Height="250" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="{Binding !CanEdit}" />
 				<Button Command="{Binding SaveCommand}" HorizontalAlignment="Center" IsVisible="{Binding CanEdit}" Padding="15 5">Save</Button>
 				<Button Command="{Binding ExitCommand}" Classes="link" HorizontalAlignment="Center" Padding="15 5">Exit</Button>
 			</StackPanel>
 		</TabItem>
-		<TabItem>
+		<TabItem IsVisible="{Binding CanEdit}">
 			<TabItem.Header>
 				<TextBlock VerticalAlignment="Center">Permissions</TextBlock>
 			</TabItem.Header>
-			<StackPanel>
-				<TextBlock Text="I am in the triangle page ! I'll put a button to show you that each page contains what you want." HorizontalAlignment="Left" VerticalAlignment="Center"/>
-				<Button>A button in the triangle page !</Button>
-			</StackPanel>
+			<Grid RowDefinitions="Auto *">
+				<ListBox ItemsSource="{Binding Users}">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Grid ColumnDefinitions="4* *">
+								<TextBlock VerticalAlignment="Center" FontSize="16" Text="{Binding User.Name}"/>
+								<CheckBox HorizontalAlignment="Right" Grid.Column="1" IsChecked="{Binding CanEdit}"/>
+							</Grid>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+				
+				<Button Grid.Row="1" Command="{Binding SaveUsersCommand}" Classes="link" HorizontalAlignment="Center" Padding="15 5">Save</Button>
+			</Grid>
 		</TabItem>
 	</TabControl>
 </UserControl>
