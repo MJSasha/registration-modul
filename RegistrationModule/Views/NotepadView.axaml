@@ -10,9 +10,12 @@
 		<vm:NotepadViewModel />
 	</Design.DataContext>
 	<TabControl Margin="20" Width="400">
-		<TabItem Header="Notepad" VerticalContentAlignment="Center">
+		<TabItem>
+			<TabItem.Header>
+				<TextBlock VerticalAlignment="Center">Notepad</TextBlock>
+			</TabItem.Header>
 			<StackPanel Spacing="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-				<TextBox Text="{Binding Text}" Width="400" Height="250" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="{Binding !CanEdit}" />
+				<TextBox Text="{Binding Text}" Width="400" VerticalAlignment="Top" Height="270" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="{Binding !CanEdit}" />
 				<Button Command="{Binding SaveCommand}" HorizontalAlignment="Center" IsVisible="{Binding CanEdit}" Padding="15 5">Save</Button>
 				<Button Command="{Binding ExitCommand}" Classes="link" HorizontalAlignment="Center" Padding="15 5">Exit</Button>
 			</StackPanel>
@@ -21,20 +24,23 @@
 			<TabItem.Header>
 				<TextBlock VerticalAlignment="Center">Permissions</TextBlock>
 			</TabItem.Header>
-			<Grid RowDefinitions="Auto *">
-				<ListBox ItemsSource="{Binding Users}">
-					<ListBox.ItemTemplate>
-						<DataTemplate>
-							<Grid ColumnDefinitions="4* *">
-								<TextBlock VerticalAlignment="Center" FontSize="16" Text="{Binding User.Name}"/>
-								<CheckBox HorizontalAlignment="Right" Grid.Column="1" IsChecked="{Binding CanEdit}"/>
-							</Grid>
-						</DataTemplate>
-					</ListBox.ItemTemplate>
-				</ListBox>
-				
-				<Button Grid.Row="1" Command="{Binding SaveUsersCommand}" Classes="link" HorizontalAlignment="Center" Padding="15 5">Save</Button>
-			</Grid>
+				<Grid RowDefinitions="Auto *">
+					<ScrollViewer Height="300" Padding="2">
+						<ItemsControl  ItemsSource="{Binding Users}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Border BoxShadow="2 2 3 2 Black" Padding="6" Margin="5" CornerRadius="5">
+										<Grid ColumnDefinitions="4* *">
+											<TextBlock VerticalAlignment="Center" FontSize="16" Text="{Binding User.Name}"/>
+											<CheckBox HorizontalAlignment="Right" Grid.Column="1" IsChecked="{Binding CanEdit}"/>
+										</Grid>
+									</Border>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</ScrollViewer>
+					<Button Grid.Row="1" Command="{Binding SaveUsersCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Padding="15 5">Save</Button>
+				</Grid>
 		</TabItem>
 	</TabControl>
 </UserControl>
