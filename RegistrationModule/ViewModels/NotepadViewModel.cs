@@ -5,6 +5,7 @@ using ReactiveUI;
 using RegistrationModul.Models;
 using RegistrationModul.Services;
 using RegistrationModule.Definitions;
+using RegistrationModule.Models;
 using RegistrationModule.Services;
 using System;
 using System.Collections.ObjectModel;
@@ -19,7 +20,7 @@ namespace RegistrationModul.ViewModels
     {
         #region Public props
 
-        public IStorageFile File { get => file; set { this.RaiseAndSetIfChanged(ref file, value); OnFileOpened(); } }
+        public IStorageFile File { get => file; set { this.RaiseAndSetIfChanged(ref file, value); if (value != null) OnFileOpened(); } }
         public ObservableCollection<UserWitPermission> Users { get => users; set => this.RaiseAndSetIfChanged(ref users, value); }
         public ObservableCollection<string> Roles { get => roles; set => this.RaiseAndSetIfChanged(ref roles, value); }
         public string Text { get => text; set => this.RaiseAndSetIfChanged(ref text, value); }
@@ -60,9 +61,20 @@ namespace RegistrationModul.ViewModels
         }
 
         [RelayCommand]
-        private void Save()
+        private async Task Save()
         {
+            var fileHash = await Utils.HashFile(File);
             System.IO.File.WriteAllText(file.Path.AbsolutePath, Text);
+            var newFilePath = Utils.ChangeFileExtension(file.Path.AbsolutePath);
+
+            var currentCompany = companiesService.GetCurrentCompany();
+            var files = currentCompany.FileCredentials;
+            var existingFile = files.Find(f => f.Path == newFilePath);
+
+            if (existingFile != null) existingFile.Hash = fileHash;
+            else files.Add(new FileCredentials { Path = newFilePath, Hash = fileHash });
+            currentCompany.FileCredentials = files;
+            companiesService.Update(currentCompany);
         }
 
         [RelayCommand]
@@ -99,6 +111,16 @@ namespace RegistrationModul.ViewModels
 
         private async Task OnFileOpened()
         {
+            var files = companiesService.GetCurrentCompany().FileCredentials;
+            var existingFile = files.Find(f => f.Path == file.Path.AbsolutePath);
+            var fileHash = await Utils.HashFile(File);
+
+            if (existingFile?.Hash != fileHash)
+            {
+                Text = "Incorrect file. Please reselect.";
+                return;
+            }
+
             using var stream = await file.OpenReadAsync();
             using var reader = new StreamReader(stream);
             Text = await reader.ReadToEndAsync();
