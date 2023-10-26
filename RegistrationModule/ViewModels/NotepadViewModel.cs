@@ -115,7 +115,7 @@ namespace RegistrationModul.ViewModels
             var existingFile = files.Find(f => f.Path == file.Path.AbsolutePath);
             var fileHash = await Utils.HashFile(File);
 
-            if (existingFile?.Hash != fileHash)
+            if (existingFile != null && existingFile.Hash != fileHash)
             {
                 Text = "Incorrect file. Please reselect.";
                 return;
