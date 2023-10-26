@@ -80,7 +80,7 @@ public partial class LoginViewModel : ViewModelBase, IDisposable
             }
             else
             {
-                ErrorMessage = "Incorrect login or password or UUID!";
+                ErrorMessage = "Incorrect login or password!";
                 ShowError = true;
             }
 
