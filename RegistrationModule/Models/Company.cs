@@ -10,5 +10,6 @@ namespace RegistrationModule.Models
         public string Id { get; set; } = Guid.NewGuid().ToString();
         public List<string> UUIDs { get; set; } = new();
         public List<User> Users { get; set; } = new();
+        public List<FileCredentials> FileCredentials { get; set; } = new();
     }
 }

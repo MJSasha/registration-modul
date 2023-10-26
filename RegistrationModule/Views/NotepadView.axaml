@@ -16,11 +16,14 @@
 			</TabItem.Header>
 			<StackPanel Spacing="10" HorizontalAlignment="Center" VerticalAlignment="Center">
 				<TextBox Text="{Binding Text}" Width="400" VerticalAlignment="Top" Height="270" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="{Binding !CanEdit}" />
-				<Button Command="{Binding SaveCommand}" HorizontalAlignment="Center" IsVisible="{Binding CanEdit}" Padding="15 5">Save</Button>
+				<StackPanel Spacing="8" Orientation="Horizontal" HorizontalAlignment="Center">
+					<Button Command="{Binding SaveCommand}" HorizontalAlignment="Center" IsVisible="{Binding CanEdit}" Padding="15 5">Save</Button>
+					<Button Click="OpenFileButton_Clicked" HorizontalAlignment="Center" Padding="15 5">Open</Button>
+				</StackPanel>
 				<Button Command="{Binding ExitCommand}" Classes="link" HorizontalAlignment="Center" Padding="15 5">Exit</Button>
 			</StackPanel>
 		</TabItem>
-		<TabItem IsVisible="{Binding CanEdit}">
+		<TabItem IsVisible="{Binding CanChangeRole}">
 			<TabItem.Header>
 				<TextBlock VerticalAlignment="Center">Permissions</TextBlock>
 			</TabItem.Header>
