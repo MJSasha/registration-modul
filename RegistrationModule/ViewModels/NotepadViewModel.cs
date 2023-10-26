@@ -63,9 +63,9 @@ namespace RegistrationModul.ViewModels
         [RelayCommand]
         private async Task Save()
         {
-            var fileHash = await Utils.HashFile(File);
             System.IO.File.WriteAllText(file.Path.AbsolutePath, Text);
             var newFilePath = Utils.ChangeFileExtension(file.Path.AbsolutePath);
+            var fileHash = await Utils.HashFile(newFilePath);
 
             var currentCompany = companiesService.GetCurrentCompany();
             var files = currentCompany.FileCredentials;
@@ -113,11 +113,12 @@ namespace RegistrationModul.ViewModels
         {
             var files = companiesService.GetCurrentCompany().FileCredentials;
             var existingFile = files.Find(f => f.Path == file.Path.AbsolutePath);
-            var fileHash = await Utils.HashFile(File);
+            var fileHash = await Utils.HashFile(file.Path.AbsolutePath);
 
             if (existingFile != null && existingFile.Hash != fileHash)
             {
                 Text = "Incorrect file. Please reselect.";
+                CanEdit = false;
                 return;
             }
 

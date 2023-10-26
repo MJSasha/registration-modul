@@ -58,11 +58,9 @@ namespace RegistrationModul
             return newFiliPath;
         }
 
-        public static async Task<string> HashFile(IStorageFile file)
+        public static async Task<string> HashFile(string file)
         {
-            using var stream = await file.OpenReadAsync();
-            using var reader = new StreamReader(stream);
-            var bytes = Encoding.UTF8.GetBytes(await reader.ReadToEndAsync());
+            var bytes = Encoding.UTF8.GetBytes(File.ReadAllText(file));
             byte[] hashBytes = SHA256.HashData(bytes);
             return Convert.ToBase64String(hashBytes);
         }
