@@ -64,17 +64,6 @@ namespace RegistrationModul.ViewModels
         private async Task Save()
         {
             System.IO.File.WriteAllText(file.Path.AbsolutePath, Text);
-            var newFilePath = Utils.ChangeFileExtension(file.Path.AbsolutePath);
-            var fileHash = await Utils.HashFile(newFilePath);
-
-            var currentCompany = companiesService.GetCurrentCompany();
-            var files = currentCompany.FileCredentials;
-            var existingFile = files.Find(f => f.Path == newFilePath);
-
-            if (existingFile != null) existingFile.Hash = fileHash;
-            else files.Add(new FileCredentials { Path = newFilePath, Hash = fileHash });
-            currentCompany.FileCredentials = files;
-            companiesService.Update(currentCompany);
         }
 
         [RelayCommand]
@@ -111,17 +100,6 @@ namespace RegistrationModul.ViewModels
 
         private async Task OnFileOpened()
         {
-            var files = companiesService.GetCurrentCompany().FileCredentials;
-            var existingFile = files.Find(f => f.Path == file.Path.AbsolutePath);
-            var fileHash = await Utils.HashFile(file.Path.AbsolutePath);
-
-            if (existingFile != null && existingFile.Hash != fileHash)
-            {
-                Text = "Incorrect file. Please reselect.";
-                CanEdit = false;
-                return;
-            }
-
             using var stream = await file.OpenReadAsync();
             using var reader = new StreamReader(stream);
             Text = await reader.ReadToEndAsync();

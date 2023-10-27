@@ -46,23 +46,5 @@ namespace RegistrationModul
             byte[] hashBytes = SHA256.HashData(combinedBytes);
             return Convert.ToBase64String(hashBytes);
         }
-
-        public static string ChangeFileExtension(string filePath)
-        {
-            var currentExtension = Path.GetExtension(filePath);
-
-            if (currentExtension == ".secretextension") return filePath;
-
-            string newFiliPath = Path.ChangeExtension(filePath, ".secretextension");
-            File.Move(filePath, newFiliPath);
-            return newFiliPath;
-        }
-
-        public static async Task<string> HashFile(string file)
-        {
-            var bytes = Encoding.UTF8.GetBytes(File.ReadAllText(file));
-            byte[] hashBytes = SHA256.HashData(bytes);
-            return Convert.ToBase64String(hashBytes);
-        }
     }
 }
