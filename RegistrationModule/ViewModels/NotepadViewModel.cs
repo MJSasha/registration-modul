@@ -5,6 +5,7 @@ using ReactiveUI;
 using RegistrationModul.Models;
 using RegistrationModul.Services;
 using RegistrationModule.Definitions;
+using RegistrationModule.Helpers;
 using RegistrationModule.Models;
 using RegistrationModule.Services;
 using System;
@@ -32,6 +33,8 @@ namespace RegistrationModul.ViewModels
         #region Private props
 
         private CompaniesService companiesService;
+
+        private Company currentCompany;
 
         private IStorageFile file;
         private ObservableCollection<UserWitPermission> users;
@@ -61,9 +64,14 @@ namespace RegistrationModul.ViewModels
         }
 
         [RelayCommand]
-        private async Task Save()
+        private void Save()
         {
-            System.IO.File.WriteAllText(file.Path.AbsolutePath, Text);
+            var zipPath = FilesManager.EncryptAndWriteToFile(file, AuthService.CurrentUser.Credentials.Password, Text);
+            var fileCredentials = currentCompany.FileCredentials.Find(f => f.Path == zipPath);
+
+            if (fileCredentials == null) currentCompany.FileCredentials.Add(new FileCredentials { Path = zipPath, LastEditorId = AuthService.CurrentUser.Id });
+            else fileCredentials.LastEditorId = AuthService.CurrentUser.Id;
+            companiesService.Update(currentCompany);
         }
 
         [RelayCommand]
@@ -75,11 +83,10 @@ namespace RegistrationModul.ViewModels
                 return u.User;
             }).ToList();
             updatedUsers.Add(AuthService.CurrentUser);
-            var currentCompany = companiesService.GetCurrentCompany();
             currentCompany.Users = updatedUsers;
             companiesService.Update(currentCompany);
 
-            Users = new ObservableCollection<UserWitPermission>(companiesService.GetCurrentCompany().Users
+            Users = new ObservableCollection<UserWitPermission>(currentCompany.Users
                 .Where(u => u.Id != AuthService.CurrentUser?.Id)
                 .Select(u => new UserWitPermission { User = u, CanEdit = u.Role == UserRole.Editor }));
         }
@@ -89,21 +96,33 @@ namespace RegistrationModul.ViewModels
         private void Init()
         {
             companiesService = new();
-            Users = new ObservableCollection<UserWitPermission>(companiesService.GetCurrentCompany().Users
+            currentCompany = companiesService.GetCurrentCompany();
+            Users = new ObservableCollection<UserWitPermission>(currentCompany.Users
                 .Where(u => u.Id != AuthService.CurrentUser?.Id)
                 .Select(u => new UserWitPermission { User = u, CanEdit = u.Role == UserRole.Editor }));
 
             Roles = new ObservableCollection<string>(Enum.GetValues<UserRole>().Select(v => v.ToString()));
-            CanEdit = AuthService.CurrentUser.Role == UserRole.Editor && file != null;
+            CanEdit = AuthService.CurrentUser.Role == UserRole.Editor && File != null;
             CanChangeRole = AuthService.CurrentUser.Role == UserRole.Editor;
         }
 
         private async Task OnFileOpened()
         {
-            using var stream = await file.OpenReadAsync();
-            using var reader = new StreamReader(stream);
-            Text = await reader.ReadToEndAsync();
-            CanEdit = AuthService.CurrentUser.Role == UserRole.Editor && file != null;
+            try
+            {
+                var lastEditorId = currentCompany.FileCredentials.Find(f => f.Path == file.Path.AbsolutePath)?.LastEditorId;
+                var lastEditor = currentCompany.Users.Find(u => u.Id == lastEditorId);
+                Text = FilesManager.ReadAndDecryptFile(file, lastEditor?.Credentials?.Password);
+            }
+            catch (Exception ex)
+            {
+                Text = ex.Message;
+                File = null;
+            }
+            finally
+            {
+                CanEdit = AuthService.CurrentUser.Role == UserRole.Editor && File != null;
+            }
         }
     }
 
