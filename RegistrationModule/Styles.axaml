@@ -7,6 +7,7 @@
 				<Button Classes="buttonWithQuestionIcon"/>
 				<TextBlock Classes="error">Error text</TextBlock>
 				<Ellipse Fill="BurlyWood" Height="40" Width="40"/>
+				<Button Classes="withIndicator">Text</Button>
 			</StackPanel>
         </Border>
     </Design.PreviewWith>
@@ -88,5 +89,28 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
+	</Style>
+
+	<Style Selector="Button.withIndicator">
+		<Setter Property="BorderThickness" Value="3"/>
+	</Style>
+
+	<Style Selector="Button.withIndicator:focus">
+		<Style.Animations>
+			<Animation Duration="0:0:2">
+				<KeyFrame Cue="0%">
+					<Setter Property="BorderBrush" Value="Transparent"/>
+				</KeyFrame>
+				<KeyFrame Cue="20%">
+					<Setter Property="BorderBrush" Value="LightGreen"/>
+				</KeyFrame>
+				<KeyFrame Cue="70%">
+					<Setter Property="BorderBrush" Value="Green"/>
+				</KeyFrame>
+				<KeyFrame Cue="100%">
+					<Setter Property="BorderBrush" Value="Transparent"/>
+				</KeyFrame>
+			</Animation>
+		</Style.Animations>
 	</Style>
 </Styles>

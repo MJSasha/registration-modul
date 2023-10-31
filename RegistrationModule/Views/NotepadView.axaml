@@ -18,7 +18,7 @@
 				<Grid RowDefinitions="* Auto" ColumnDefinitions="*">
 					<TextBox Text="{Binding Text}" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="{Binding !CanEdit}" />
 					<StackPanel Grid.Row="1" Spacing="8" Margin="0 10 0 0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-						<Button Command="{Binding SaveCommand}" HorizontalAlignment="Center" IsVisible="{Binding CanEdit}" Padding="15 5">Save</Button>
+						<Button Classes="withIndicator" Command="{Binding SaveCommand}" HorizontalAlignment="Center" IsVisible="{Binding CanEdit}" Padding="15 5">Save</Button>
 						<Button Click="OpenFileButton_Clicked" HorizontalAlignment="Center" Padding="15 5">Open</Button>
 					</StackPanel>
 				</Grid>
@@ -43,7 +43,7 @@
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
 						</ScrollViewer>
-						<Button Grid.Row="1" Command="{Binding SaveUsersCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Padding="15 5">Save</Button>
+						<Button Grid.Row="1" Classes="withIndicator" Command="{Binding SaveUsersCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Padding="15 5">Save</Button>
 					</Grid>
 			</TabItem>
 		</TabControl>
