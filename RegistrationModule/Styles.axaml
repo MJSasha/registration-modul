@@ -93,22 +93,80 @@
 
 	<Style Selector="Button.withIndicator">
 		<Setter Property="BorderThickness" Value="3"/>
+		<Setter Property="BorderBrush">
+			<Setter.Value>
+				<LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+					<LinearGradientBrush.GradientStops>
+						<GradientStop Offset="0" Color="Transparent"/>
+						<GradientStop Offset="1" Color="Transparent"/>
+					</LinearGradientBrush.GradientStops>
+				</LinearGradientBrush>
+			</Setter.Value>
+		</Setter>
 	</Style>
 
 	<Style Selector="Button.withIndicator:focus">
 		<Style.Animations>
 			<Animation Duration="0:0:2">
 				<KeyFrame Cue="0%">
-					<Setter Property="BorderBrush" Value="Transparent"/>
+					<Setter Property="BorderBrush">
+						<Setter.Value>
+							<LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Offset="0" Color="Transparent"/>
+									<GradientStop Offset="1" Color="Transparent"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</Setter.Value>
+					</Setter>
 				</KeyFrame>
-				<KeyFrame Cue="20%">
-					<Setter Property="BorderBrush" Value="LightGreen"/>
+				<KeyFrame Cue="25%">
+					<Setter Property="BorderBrush">
+						<Setter.Value>
+							<LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Offset="0" Color="Green"/>
+									<GradientStop Offset="1" Color="Transparent"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</Setter.Value>
+					</Setter>
 				</KeyFrame>
-				<KeyFrame Cue="70%">
-					<Setter Property="BorderBrush" Value="Green"/>
+				<KeyFrame Cue="50%">
+					<Setter Property="BorderBrush">
+						<Setter.Value>
+							<LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Offset="0" Color="Green"/>
+									<GradientStop Offset="1" Color="Green"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</Setter.Value>
+					</Setter>
+				</KeyFrame>
+				<KeyFrame Cue="75%">
+					<Setter Property="BorderBrush">
+						<Setter.Value>
+							<LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Offset="0" Color="Transparent"/>
+									<GradientStop Offset="1" Color="Green"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</Setter.Value>
+					</Setter>
 				</KeyFrame>
 				<KeyFrame Cue="100%">
-					<Setter Property="BorderBrush" Value="Transparent"/>
+					<Setter Property="BorderBrush">
+						<Setter.Value>
+							<LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Offset="1" Color="Transparent"/>
+									<GradientStop Offset="0" Color="Transparent"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</Setter.Value>
+					</Setter>
 				</KeyFrame>
 			</Animation>
 		</Style.Animations>
