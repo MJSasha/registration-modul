@@ -12,10 +12,11 @@ namespace RegistrationModule.Helpers
             var filePath = file.Path.AbsolutePath;
             var fileName = Path.GetFileName(filePath);
 
+            File.Delete(filePath);
+
             if (!IsArchive(filePath))
             {
                 filePath += ".zip";
-                File.Delete(file.Path.AbsolutePath);
             }
 
             using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
