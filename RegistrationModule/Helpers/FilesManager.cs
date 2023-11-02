@@ -10,7 +10,6 @@ namespace RegistrationModule.Helpers
         public static string EncryptAndWriteToFile(IStorageFile file, string password, string content)
         {
             var filePath = file.Path.AbsolutePath;
-            //var directory = Path.GetDirectoryName(filePath);
             var fileName = Path.GetFileName(filePath);
 
             if (!IsArchive(filePath))
@@ -29,7 +28,7 @@ namespace RegistrationModule.Helpers
             using var writer = new StreamWriter(zipStream);
             writer.Write(content);
 
-            return filePath + ".zip";
+            return filePath;
         }
 
         public static string ReadAndDecryptFile(IStorageFile file, string password = "")
