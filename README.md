@@ -29,7 +29,8 @@ Before you begin, ensure you have met the following requirements:
 ### Running the Application
 To run the Registration Module, follow these steps:
 
-1. Right click on the project `RegistrationModule.Desktop`
-2. Select `Debug > Start New Instance`
+1. Open `RegistrationModule.sln`
+2. Right click on the project `RegistrationModule.Desktop`
+3. Select `Debug > Start New Instance`
 
 The Registration Module should launch, providing registration and authentication functionalities.
